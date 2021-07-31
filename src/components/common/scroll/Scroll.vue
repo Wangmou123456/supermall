@@ -50,6 +50,12 @@ export default {
     // 关闭下拉加载更多 才能继续监听
     finishPullUp() {
       this.scroll.finishPullUp();
+    },
+    refresh() {
+      this.scroll.refresh();
+    },
+    getScrollY() {
+      return this.scroll ? this.scroll.Y : 0;
     }
   }
 };
