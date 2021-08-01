@@ -25,7 +25,6 @@ export default {
     };
   },
   mounted() {
-    console.log(this.pullUpLoad);
     // 创建BScroll对象
     this.scroll = new BScroll(this.$refs.wrapper, {
       click: true,
@@ -51,6 +50,8 @@ export default {
     finishPullUp() {
       this.scroll.finishPullUp();
     },
+
+    // 刷新
     refresh() {
       this.scroll.refresh();
     },

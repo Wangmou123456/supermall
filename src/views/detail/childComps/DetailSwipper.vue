@@ -24,12 +24,6 @@ export default {
         return [];
       }
     }
-  },
-  destroyed() {
-    console.log("12");
-  },
-  activated() {
-    console.log("1");
   }
 };
 </script>
