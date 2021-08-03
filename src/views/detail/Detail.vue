@@ -40,6 +40,7 @@ import {
   GoodsParam,
   getRecommend
 } from "network/detail";
+import { mapActions } from "vuex";
 export default {
   name: "detail",
   mixins: [itemListenerMixin],
@@ -90,7 +91,6 @@ export default {
       this.themeTopYs.push(this.$refs.comment.$el.offsetTop);
       this.themeTopYs.push(this.$refs.recommend.$el.offsetTop);
       this.themeTopYs.push(Number.MAX_VALUE);
-      console.log(this.themeTopYs);
     });
   },
   updated() {
@@ -103,13 +103,15 @@ export default {
     });
   },
   destroyed() {
-    console.log("1");
     this.$bus.$off("itemDetailImageLoad", () => {
       func();
     });
   },
 
   methods: {
+    ...mapActions({
+      Cart: "addCart"
+    }),
     async getDetail() {
       const { result: res } = await getDetail(this.iid);
       // 1 轮播图播放数据
@@ -192,9 +194,15 @@ export default {
       product.desc = this.goods.desc;
       product.price = this.goods.realPrice;
       product.iid = this.iid;
-      console.log(product);
-      this.$store.commit("addCart", product);
+
       // 2 将商品添加到购物车里面
+      this.Cart(product).then(res => {
+        this.$toast.show(res);
+      });
+      // this.$store.dispatch("addCart", product).then(res => {
+      //   console.log(res);
+      // });
+      // 3 添加到购物车成功
     }
   }
 };
